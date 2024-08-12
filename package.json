@@ -1,0 +1,26 @@
+{
+  "name": "tic-tac-toe-game",
+  "version": "1.0.0",
+  "description": "tic-tac-toe game with react, xstate, styled component",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@xstate/react": "^4.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.1.12",
+    "xstate": "^5.17.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.5"
+  },
+  "author": "",
+  "license": "ISC"
+}
