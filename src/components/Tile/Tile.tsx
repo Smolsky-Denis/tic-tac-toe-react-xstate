@@ -1,15 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TileWrapper = styled.div<{ player: 'x' | 'o' | null }>`
+const TileWrapper = styled.button<{ player: 'x' | 'o' | null }>`
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 10vmin;
+  line-height: 10vmin;
   background: white;
+  border: none;
 
   &:before {
     content: attr(data-player);
+    color: ${({player}) => player === 'x' ? 'red' : 'blue'};
   }
 `;
 
@@ -26,6 +29,7 @@ const Tile: React.FC<TileProps> = ({index, onClick, player}) => {
       onClick={onClick}
       data-player={player}
       player={player}
+      data-testid={`tile-${index}`}
     />
   );
 };

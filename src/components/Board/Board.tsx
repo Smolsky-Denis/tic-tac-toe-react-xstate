@@ -6,6 +6,7 @@ const BoardWrapper = styled.div`
   display: grid;
   height: 50vmin;
   width: 50vmin;
+  margin-top: 40px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-column-gap: 0.25rem;
@@ -24,7 +25,7 @@ function range(start: number, end: number) {
     .map((_, i) => i + start);
 }
 
-const Board: React.FC<BoardProps> = ({ squares, onPlay}) => {
+const Board: React.FC<BoardProps> = ({squares, onPlay}) => {
   return (
     <BoardWrapper>
       {range(0, 9).map((index) => (

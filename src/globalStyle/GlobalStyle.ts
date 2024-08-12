@@ -11,6 +11,6 @@ export const GlobalStyle = createGlobalStyle`
   #root {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
   }
 `;

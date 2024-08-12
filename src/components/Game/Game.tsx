@@ -1,12 +1,9 @@
 import React from 'react';
 import {useMachine} from '@xstate/react';
 import {ticTacToeMachine} from "../../machines/ticTacToeMachine";
-import styled from 'styled-components';
 import Board from "../Board/Board";
 
-const GameWrapper = styled.div`
-  text-align: center;
-`;
+import {GameWrapper, Title, SubTitle, Footer, ResetButton} from './Game.styled'
 
 const Game: React.FC = () => {
   const [state, send] = useMachine(ticTacToeMachine);
@@ -16,18 +13,33 @@ const Game: React.FC = () => {
     send({type: 'PLAY', value: index});
   };
 
+  const handleResetGame = () => send({type: 'RESET'})
+
   return (
     <GameWrapper>
-      <h1>Tic-Tac-Toe</h1>
-      {state.matches('idle') && <h2>Click any tile to start the game</h2>}
-      {state.matches('gameOver') && (
-        <div>
-          {state.hasTag('winner') && <h2>Winner: {winner}</h2>}
-          {state.hasTag('draw') && <h2>Draw</h2>}
-          <button onClick={() => send({type: 'RESET'})}>Reset</button>
-        </div>
-      )}
-      <Board xIsNext={player === 'x'} squares={board} onPlay={handlePlay}/>
+      <Title>Tic-Tac-Toe</Title>
+      <SubTitle>
+        {state.matches('idle') && 'Click any tile to start the game'}
+        {state.matches('gameOver') && state.hasTag('winner') && `The winner is ${winner.toUpperCase()}`}
+        {state.matches('gameOver') && state.hasTag('draw') && 'Draw'}
+      </SubTitle>
+      <Board
+        xIsNext={player === 'x'}
+        squares={board}
+        onPlay={handlePlay}
+      />
+      <Footer>
+        {
+          state.matches('gameOver') &&
+          (
+            <ResetButton
+              onClick={handleResetGame}
+            >
+              Reset
+            </ResetButton>
+          )
+        }
+      </Footer>
     </GameWrapper>
   );
 };

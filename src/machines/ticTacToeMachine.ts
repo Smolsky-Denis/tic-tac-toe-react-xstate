@@ -1,4 +1,4 @@
-import { assign, setup } from 'xstate';
+import {assign, setup} from 'xstate';
 
 type Player = 'x' | 'o';
 
@@ -19,8 +19,8 @@ export const ticTacToeMachine = setup({
     events: {} as TicTacToeEvent,
   },
   guards: {
-    checkWin: ({ context }) => {
-      const { board } = context;
+    checkWin: ({context}) => {
+      const {board} = context;
       const winningLines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -42,22 +42,22 @@ export const ticTacToeMachine = setup({
 
       return false;
     },
-    checkDraw: ({ context }) => context.moves === 9,
-    isValidMove: ({ context, event }) => {
+    checkDraw: ({context}) => context.moves === 9,
+    isValidMove: ({context, event}) => {
       if (event.type !== 'PLAY') return false;
       return context.board[event.value] === null;
     },
   },
   actions: {
     updateBoard: assign({
-      board: ({ context, event }) => {
+      board: ({context, event}) => {
         if (event.type !== 'PLAY') return context.board;
         const updatedBoard = [...context.board];
         updatedBoard[event.value] = context.player;
         return updatedBoard;
       },
-      moves: ({ context }) => context.moves + 1,
-      player: ({ context }) => (context.player === 'x' ? 'o' : 'x'),
+      moves: ({context}) => context.moves + 1,
+      player: ({context}) => (context.player === 'x' ? 'o' : 'x'),
     }),
     resetGame: assign({
       board: () => Array(9).fill(null),
@@ -66,7 +66,7 @@ export const ticTacToeMachine = setup({
       winner: () => undefined,
     }),
     setWinner: assign({
-      winner: ({ context }) => (context.player === 'x' ? 'o' : 'x'),
+      winner: ({context}) => (context.player === 'x' ? 'o' : 'x'),
     }),
   },
 }).createMachine({
@@ -89,8 +89,8 @@ export const ticTacToeMachine = setup({
     },
     playing: {
       always: [
-        { target: 'gameOver.winner', guard: 'checkWin' },
-        { target: 'gameOver.draw', guard: 'checkDraw' },
+        {target: 'gameOver.winner', guard: 'checkWin'},
+        {target: 'gameOver.draw', guard: 'checkDraw'},
       ],
       on: {
         PLAY: {
