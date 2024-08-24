@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { FC } from "react";
+import styled from "styled-components";
 import Tile from "../Tile/Tile";
 
 const BoardWrapper = styled.div`
@@ -15,7 +15,7 @@ const BoardWrapper = styled.div`
 `;
 
 interface BoardProps {
-  squares: (string | null)[];
+  squares: ("x" | "o" | null)[];
   onPlay: (index: number) => void;
 }
 
@@ -25,7 +25,7 @@ function range(start: number, end: number) {
     .map((_, i) => i + start);
 }
 
-const Board: React.FC<BoardProps> = ({squares, onPlay}) => {
+const Board: FC<BoardProps> = ({ squares, onPlay }) => {
   return (
     <BoardWrapper>
       {range(0, 9).map((index) => (
